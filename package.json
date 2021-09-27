@@ -5,9 +5,10 @@
   "author": "VacPet Software",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon src/server.ts",
-    "build": "tsc --module commonjs",
-    "start": "node dist/server.js"
+    "build": "tsc ",
+    "start": "node dist/server.js",
+    "typeorm": "npx ts-node ./node_modules/typeorm/cli.js",
+    "dev": "npx nodemon --exec ts-node src/server.ts"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
@@ -25,6 +26,7 @@
     "nodemon": "^2.0.12",
     "prettier": "^2.4.1",
     "sucrase": "^3.20.1",
+    "ts-node": "^10.2.1",
     "tsc": "^2.0.3",
     "typescript": "^4.4.3"
   },
@@ -35,6 +37,9 @@
     "express": "^4.17.1",
     "express-handlebars": "^5.3.4",
     "handlebars": "^4.7.7",
-    "remove": "^0.1.5"
+    "mysql2": "^2.3.0",
+    "reflect-metadata": "^0.1.13",
+    "remove": "^0.1.5",
+    "typeorm": "^0.2.37"
   }
 }

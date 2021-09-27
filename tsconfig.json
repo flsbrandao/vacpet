@@ -7,10 +7,11 @@
     "removeComments": true,
     "strictNullChecks": true,
     "experimentalDecorators": true,
-    // "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "moduleResolution": "node",
-    "module": "commonjs"
+    "module": "commonjs",
+    "strictPropertyInitialization": false
   },
   "include": ["src/**/*"]
 }

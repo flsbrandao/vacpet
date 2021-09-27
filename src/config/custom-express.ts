@@ -1,7 +1,10 @@
-import express from 'express';
+import 'reflect-metadata';
+import express, {Request,Response,NextFunction} from 'express';
 import cors from 'cors';
 import routes from '../app/routes/index';
 import handlebars from 'express-handlebars';
+import '../database/connect';
+import MyCustomErrors from '../app/helpers/MyCustomErrors';
 
 const app: express.Application = express();
 
@@ -18,5 +21,15 @@ app.engine('hbs', handlebars({
   defaultLayout: 'main',
   extname: 'hbs'
 }));
+
+app.use((error: Error,req: Request, res: Response, next: NextFunction) => {
+  console.log(error);
+  if(error instanceof MyCustomErrors){
+    return res.status(error.statusCode).json({
+      message: error.message
+    })
+  }
+  return res.status(500).json({message: 'Internal Error'})
+});
 
 export default app;
