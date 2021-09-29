@@ -5,7 +5,17 @@ import UserService from '../services/UserService';
 
 class UserController {
 
-  public async create(req: Request, res: Response, next: NextFunction) : Promise<Response | undefined | void >{
+  public renderCreate(req: Request, res: Response, next: NextFunction): void {
+    try {
+
+      return res.render("pages/register");
+
+    } catch (err) {
+      return next(err);
+    }
+  }
+
+  public async create(req: Request, res: Response, next: NextFunction): Promise<Response | undefined | void> {
 
     try {
       const { nome, cpf, email, endereco, celular, telefone } = req.body;

@@ -23,7 +23,8 @@ class UserService {
     await userRepository.create(userDTO);
 
     return {
-      message: "Usuário cadastrado com sucesso!"
+      message: "Usuário cadastrado com sucesso!",
+      success: true
     }
 
   }

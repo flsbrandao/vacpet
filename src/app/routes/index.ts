@@ -6,6 +6,6 @@ import user from './user';
 
 export default (app : express.Application ) => {
   app.use(login);
-  app.use(pet);
   app.use(user);
+  app.use('/users',pet);
 }

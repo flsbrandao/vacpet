@@ -1,8 +1,19 @@
-import{ Request, Response} from 'express';
+import{ Request, Response, NextFunction} from 'express';
 class PetController{
-  public async index(req: Request, res : Response) : Promise<Response>{
+  public renderCreate(req: Request, res: Response, next: NextFunction) : void{
+    try{
+      return res.render("pages/user/register-pets");
+    }catch(err){
+      return next(err);
+    }
+  }
 
-    return res.send('Cabra da peste!');
+  public renderList(req: Request, res: Response, next: NextFunction) : void{
+    try{
+      return res.render("pages/user/list-pets");
+    }catch(err){
+      return next(err);
+    }
   }
 
 }

@@ -1,0 +1,112 @@
+<div id="app">
+  <section class="section">
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+          <div class="login-brand">
+            <img src="../assets/img/stisla-fill.svg" alt="logo" width="100" class="shadow-light rounded-circle">
+          </div>
+
+          <div class="card card-primary">
+            <div class="card-header">
+              <h4>Cadastro de Usuário</h4>
+            </div>
+
+            <div class="card-body">
+              <form id="form-register-users">
+
+                <div class="form-group">
+                  <label for="first_name">Nome</label>
+                  <input id="nome" type="text" class="form-control" name="nome" autofocus>
+                </div>
+
+                <div class="form-group">
+                  <label for="email">CPF</label>
+                  <input id="cpf" type="text" class="form-control" name="cpf">
+                  <div class="invalid-feedback">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input id="email" type="email" class="form-control" name="email">
+                  <div class="invalid-feedback">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="email">Endereço</label>
+                  <input id="endereco" type="text" class="form-control" name="endereco">
+                  <div class="invalid-feedback">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="email">Celular</label>
+                  <input id="celular" type="text" class="form-control" name="celular">
+                  <div class="invalid-feedback">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="email">Telefone</label>
+                  <input id="telefone" type="text" class="form-control" name="telefone">
+                  <div class="invalid-feedback">
+                  </div>
+                </div>
+
+
+
+                <div class="form-group">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" name="agree" class="custom-control-input" id="agree">
+                    <label class="custom-control-label" for="agree">Eu concordo com os Termos de Serviço e Politica de
+                      Privacidade</label>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary btn-lg btn-block">
+                    Cadastrar
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="simple-footer">
+            Copyright &copy; VacPet 2021
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<script>
+  $("#form-register-users").submit(async (event) => {
+    event.preventDefault();
+
+    $.ajax({
+      type: "POST",
+      url: "/users",
+      data: $("#form-register-users").serialize(),
+      success: (data) => {
+        messageSweetAlert(data.message, 'success');
+        setTimeout(() => {
+          window.location.href = "/login"
+        }, 3000)
+      },
+      beforeSend: () => {
+
+      },
+      error: (err) => {
+
+        if (err.responseJSON.message) {
+          messageSweetAlert(err.responseJSON.message, 'error');
+          return;
+        }
+        alert('Erro interno.');
+      }
+    }); // Ajax
+
+  });
+</script>
