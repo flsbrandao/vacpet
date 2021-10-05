@@ -7,7 +7,7 @@
   "scripts": {
     "build": "env NODE_ENV=production tsc ",
     "start": "node dist/server.js",
-    "typeorm": "npx ts-node ./node_modules/typeorm/cli.js",
+    "typeorm": "env NODE_ENV=dev npx ts-node ./node_modules/typeorm/cli.js",
     "dev": "env NODE_ENV=dev npx nodemon --exec ts-node src/server.ts"
   },
   "devDependencies": {

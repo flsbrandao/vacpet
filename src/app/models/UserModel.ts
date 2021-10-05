@@ -3,7 +3,7 @@ import { Entity, PrimaryGeneratedColumn, Column, AfterUpdate } from 'typeorm';
 @Entity('users')
 class UserModel {
   @PrimaryGeneratedColumn('uuid')
-  public id: number;
+  public id: string;
 
   @Column()
   public nome: string;
