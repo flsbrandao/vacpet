@@ -1,13 +1,12 @@
+import SpeciesModel from "../models/SpeciesModel";
 import SpeciesRepository from "../repositories/SpeciesRepository";
 
-class SpeciesService{
+export default class SpeciesService{
 
-  public async find() : Promise<Object>{
+  public async find() : Promise<SpeciesModel[]>{
     const speciesRepository = new SpeciesRepository();
 
     return speciesRepository.find();
   }
 
 }
-
-export default SpeciesService;

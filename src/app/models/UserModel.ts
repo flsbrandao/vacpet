@@ -1,8 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column, AfterUpdate } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  AfterUpdate,
+  BaseEntity,
+  OneToMany,
+} from "typeorm";
+import PetsModel from "./PetsModel";
 
-@Entity('users')
-class UserModel {
-  @PrimaryGeneratedColumn('uuid')
+@Entity("users")
+export default class UserModel extends BaseEntity {
+  @PrimaryGeneratedColumn("uuid")
   public id: string;
 
   @Column()
@@ -23,13 +31,19 @@ class UserModel {
   @Column()
   public celular: string;
 
-  @Column('date')
+  @Column("date")
   public created_at: Date;
 
-  @Column('date')
+  @Column("date")
   @AfterUpdate()
   public updated_at: Date;
 
-}
+  @OneToMany(()=> PetsModel, pets => pets.user)
+  public pet : PetsModel[];
 
-export default UserModel;
+  static withID(id: string) : UserModel{
+    const userModel = new UserModel();
+    userModel.id = id;
+    return userModel;
+  }
+}

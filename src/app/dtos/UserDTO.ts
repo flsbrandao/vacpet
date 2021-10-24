@@ -1,13 +1,13 @@
 import DTO from "./DTO";
 
-class UserDTO extends DTO{
+export default class UserDTO extends DTO{
   constructor(
     public nome : string,
     public cpf : string, 
     public email : string, 
     public endereco: string,
     public celular : string,
-    public telefone: string | null = null 
+    public telefone: string = ''
   ){
     super();
     this.cpf = this.onlyNumbers(cpf);
@@ -18,4 +18,11 @@ class UserDTO extends DTO{
   }
 }
 
-export default UserDTO;
+// export default interface UserDTO {
+//   nome: string;
+//   cpf: string;
+//   email: string;
+//   endereco: string;
+//   celular: string;
+//   telefone: string;
+// }

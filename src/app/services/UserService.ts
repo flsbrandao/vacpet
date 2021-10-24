@@ -2,7 +2,7 @@ import UserDTO from "../dtos/UserDTO";
 import UserRepository from "../repositories/UserRepository";
 import MyCustomErrors from "../helpers/MyCustomErrors";
 
-class UserService {
+export default class UserService {
 
   public async create(userDTO: UserDTO) : Promise<object>{
 
@@ -24,11 +24,8 @@ class UserService {
 
     return {
       message: "Usuário cadastrado com sucesso!",
-      success: true
     }
 
   }
 
 }
-
-export default UserService;

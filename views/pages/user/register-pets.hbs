@@ -25,10 +25,9 @@
 
               <div class="form-group">
                 <label>Espécie</label>
-                <select class="form-control">
-                  <option>Option 1</option>
-                  <option>Option 2</option>
-                  <option>Option 3</option>
+                <select class="form-control" id="specie" name="specie" onchange="fetchBreeds(this.value)">
+                  <option></option>
+                  
                 </select>
               </div>
               <div class="form-group">
@@ -45,10 +44,8 @@
                 </div>
                 <div class="form-group">
                   <label>Raça</label>
-                  <select class="form-control">
-                    <option>Option 1</option>
-                    <option>Option 2</option>
-                    <option>Option 3</option>
+                  <select class="form-control" id="breed" name="breed">
+                    <option></option>
                   </select>
                 </div>
                 <div class="form-group">
@@ -67,3 +64,70 @@
   </div>
 </section>
 </div>
+<script>
+  $( document ).ready(() => {
+   fetchSpecies()
+});
+
+
+function fetchBreeds(value){
+    if(!value){
+      $('#breed').empty();
+      return;
+    };
+
+   $.ajax({
+      type: "GET",
+      url: `/breeds?specie=${value}`,
+      success: (data) => {
+
+        $('#breed').empty().append(`<option></option>`);
+       data.forEach((item) => {
+          $('#breed').append(`<option value=${item.id}> ${item.nome}</option>`);
+       });
+
+       swal.close()
+      },
+      beforeSend: () => {
+        loader()
+      },
+      error: (err) => {
+
+        if (err.responseJSON.message) {
+          messageSweetAlert(err.responseJSON.message, 'error');
+          return;
+        }
+        alert('Erro interno.');
+      }
+    }); // Ajax
+}
+
+function fetchSpecies(){
+     $.ajax({
+      type: "GET",
+      url: "/species",
+      success: (data) => {
+
+       data.forEach((item) => {
+          $('#specie').append(`<option value=${item.id}> ${item.nome}</option>`);
+       });
+
+       swal.close()
+      },
+      beforeSend: () => {
+        loader()
+      },
+      error: (err) => {
+
+        if (err.responseJSON.message) {
+          messageSweetAlert(err.responseJSON.message, 'error');
+          return;
+        }
+        alert('Erro interno.');
+      }
+    }); // Ajax
+}
+
+
+
+</script>

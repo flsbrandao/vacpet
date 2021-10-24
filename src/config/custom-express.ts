@@ -29,11 +29,10 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   console.log(error);
   if (error instanceof MyCustomErrors) {
     return res.status(error.statusCode).json({
-      message: error.message,
-      success: false
+      message: error.message
     })
   }
-  return res.status(500).json({ message: 'Internal Error', success: false })
+  return res.status(500).json({ message: 'Internal Error'})
 });
 
 export default app;

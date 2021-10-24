@@ -31,7 +31,7 @@ export class CreateSpeciesTable1632879786971 implements MigrationInterface {
         }));
 
         await queryRunner.query(`INSERT INTO species (nome)
-        VALUES ('Cachorro'), ('Gato'),('Hamsters'), ('Coelho')`);
+        VALUES ('Cachorro'), ('Gato'),('Cavalo'), ('Coelho')`);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {

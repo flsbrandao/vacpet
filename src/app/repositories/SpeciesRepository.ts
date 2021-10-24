@@ -1,18 +1,7 @@
-import {getRepository, Repository} from 'typeorm';
-import SpeciesModel from '../models/SpeciesModel';
+import SpeciesModel from "../models/SpeciesModel";
 
-class SpeciesRepository{
-
-  
-  private repository: any;
-
-  constructor() {
-    this.repository = getRepository(SpeciesModel);
-  }
-
-  public async find() : Promise<Repository<SpeciesModel>>{
-    return await this.repository.find()
+export default class SpeciesRepository {
+  public async find(): Promise<SpeciesModel[]> {
+    return await SpeciesModel.find({select: ["id","nome"]});
   }
 }
-
-export default SpeciesRepository;

@@ -1,19 +1,29 @@
-import { Entity, PrimaryGeneratedColumn, Column, AfterUpdate } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  AfterUpdate,
+  BaseEntity,
+} from "typeorm";
 
-@Entity('species')
-class SpeciesModel{
-  @PrimaryGeneratedColumn('increment')
-  public id : number;
+@Entity("species")
+export default class SpeciesModel extends BaseEntity {
+  @PrimaryGeneratedColumn("increment")
+  public id: number;
 
   @Column()
-  public nome : string;
+  public nome: string;
 
-  @Column('date')
+  @Column("date")
   public created_at: Date;
 
-  @Column('date')
+  @Column("date")
   @AfterUpdate()
   public updated_at: Date;
-}
 
-export default SpeciesModel;
+  static withID(id: number) : SpeciesModel{
+    const speciesModel = new SpeciesModel();
+    speciesModel.id = id;
+    return speciesModel;
+  }
+}
