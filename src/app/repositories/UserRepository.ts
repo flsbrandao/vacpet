@@ -3,9 +3,7 @@ import UserModel from "../models/UserModel";
 
 export default class UserRepository {
   async create(userDTO: UserDTO): Promise<UserModel> {
-    const user = await UserModel.create(userDTO).save();
-
-    return user;
+    return await UserModel.create(userDTO).save();
   }
 
   public async findForEmail(email: string): Promise<UserModel | undefined> {

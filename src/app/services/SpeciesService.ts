@@ -1,12 +1,14 @@
 import SpeciesModel from "../models/SpeciesModel";
 import SpeciesRepository from "../repositories/SpeciesRepository";
 
-export default class SpeciesService{
+export default class SpeciesService {
+  protected speciesRepository: SpeciesRepository;
 
-  public async find() : Promise<SpeciesModel[]>{
-    const speciesRepository = new SpeciesRepository();
-
-    return speciesRepository.find();
+  constructor() {
+    this.speciesRepository = new SpeciesRepository();
   }
 
+  public async find(): Promise<SpeciesModel[]> {
+    return this.speciesRepository.find();
+  }
 }

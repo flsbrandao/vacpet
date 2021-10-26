@@ -3,29 +3,31 @@ import UserRepository from "../repositories/UserRepository";
 import MyCustomErrors from "../helpers/MyCustomErrors";
 
 export default class UserService {
+  protected userRepository: UserRepository;
 
-  public async create(userDTO: UserDTO) : Promise<object>{
+  constructor() {
+    this.userRepository = new UserRepository();
+  }
 
-    const userRepository = new UserRepository();
+  public async create(userDTO: UserDTO): Promise<object> {
+    const emailUserExists = await this.userRepository.findForEmail(
+      userDTO.email
+    );
 
-    const emailUserExists = await userRepository.findForEmail(userDTO.email);
-
-    if (emailUserExists){
+    if (emailUserExists) {
       throw new MyCustomErrors("Email já cadastrado.", 409);
     }
 
-    const cpfUserExists = await userRepository.findForCpf(userDTO.cpf);
+    const cpfUserExists = await this.userRepository.findForCpf(userDTO.cpf);
 
-    if(cpfUserExists){
+    if (cpfUserExists) {
       throw new MyCustomErrors("CPF já cadastrado.", 409);
     }
 
-    await userRepository.create(userDTO);
+    await this.userRepository.create(userDTO);
 
     return {
       message: "Usuário cadastrado com sucesso!",
-    }
-
+    };
   }
-
 }

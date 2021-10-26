@@ -1,9 +1,14 @@
+import SpecieDTO from "../dtos/SpecieDTO";
 import BreedsModel from "../models/BreedsModel";
 import BreedsRepository from "../repositories/BreedsRepository";
 
 export default class BreedsService {
-  public async findForSpecie(specie: any): Promise<BreedsModel[]> {
-    const breedsRepository = new BreedsRepository();
-    return breedsRepository.findForSpecies(specie);
+  protected breedsRepository: BreedsRepository;
+
+  constructor() {
+    this.breedsRepository = new BreedsRepository();
+  }
+  public async findForSpecie(specie: SpecieDTO): Promise<BreedsModel[]> {
+    return this.breedsRepository.findForSpecies(specie);
   }
 }

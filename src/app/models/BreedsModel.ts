@@ -4,7 +4,6 @@ import {
   Column,
   Entity,
   JoinColumn,
-  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
@@ -23,6 +22,10 @@ export default class BreedsModel extends BaseEntity {
 
   @Column("date")
   public created_at: Date;
+
+  @OneToOne(() => SpeciesModel)
+  @JoinColumn()
+  public specie: SpeciesModel;
 
   @Column("date")
   @AfterUpdate()

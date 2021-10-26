@@ -1,14 +1,21 @@
 import PetsDTO from "../dtos/PetsDTO";
+import PetsModel from "../models/PetsModel";
 import PetsRepository from "../repositories/PetsRepository";
 
-export default class PetsService{
-    public async create(petsDTO: PetsDTO) : Promise<object>{
+export default class PetsService {
+  protected petsRepository: PetsRepository;
 
-        const petsRepository = new PetsRepository();
+  constructor() {
+    this.petsRepository = new PetsRepository();
+  }
+  public async create(petsDTO: PetsDTO): Promise<object> {
+    await this.petsRepository.create(petsDTO);
+    return {
+      message: "Pet cadastrado com sucesso!",
+    };
+  }
 
-        await petsRepository.create(petsDTO);
-        return {
-            message: "Pet cadastrado com sucesso!"
-        }
-    }
+  public async findForUser(petsDTO: PetsDTO) : Promise<PetsModel[]>{
+    return await this.petsRepository.findForUser(petsDTO);
+  }
 }

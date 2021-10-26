@@ -13,14 +13,14 @@
             <h4>Informações</h4>
           </div>
           <div class="card-body">
-            <form>
+            <form id="form-register-pets">
               <div class="form-group">
                 <label>Foto</label>
-                <input type="file" class="form-control" accept="image/png, image/jpeg" />
+                <input type="file" class="form-control" accept="image/png, image/jpeg" name="foto" />
               </div>
               <div class="form-group">
                 <label>Nome</label>
-                <input type="text" class="form-control" />
+                <input type="text" class="form-control" name="nome"/>
               </div>
 
               <div class="form-group">
@@ -34,11 +34,11 @@
                 <label class="form-label">Sexo</label>
                 <div class="selectgroup w-100">
                   <label class="selectgroup-item">
-                    <input type="radio" name="value" value="50" class="selectgroup-input" checked="">
+                    <input type="radio" name="sexo" value="M" class="selectgroup-input">
                     <span class="selectgroup-button">Macho</span>
                   </label>
                   <label class="selectgroup-item">
-                    <input type="radio" name="value" value="100" class="selectgroup-input">
+                    <input type="radio" name="sexo" value="F" class="selectgroup-input">
                     <span class="selectgroup-button">Fêmea</span>
                   </label>
                 </div>
@@ -50,11 +50,11 @@
                 </div>
                 <div class="form-group">
                   <label>Nascimento</label>
-                  <input type="text" class="form-control" />
+                  <input type="date" class="form-control" name='data_nascimento'/>
                 </div>
               </div>
               <div>
-                <button class="btn btn-primary">Cadastrar</button>
+                <button class="btn btn-primary" type="submit">Cadastrar</button>
               </div>
             </form>
           </div>
@@ -128,6 +128,33 @@ function fetchSpecies(){
     }); // Ajax
 }
 
+$("#form-register-pets").submit(async (event) => {
+    event.preventDefault();
+
+    $.ajax({
+      type: "POST",
+      url: "/users/pets",
+      data: $("#form-register-pets").serialize(),
+      success: (data) => {
+        messageSweetAlert(data.message, 'success');
+      /*  setTimeout(() => {
+          window.location.href = "/login"
+        }, 3000)*/
+      },
+      beforeSend: () => {
+        loader()
+      },
+      error: (err) => {
+
+        if (err.responseJSON.message) {
+          messageSweetAlert(err.responseJSON.message, 'error');
+          return;
+        }
+        alert('Erro interno.');
+      }
+    }); // Ajax
+
+  });
 
 
 </script>
