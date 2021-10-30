@@ -20,18 +20,18 @@ export default class BreedsModel extends BaseEntity {
   @Column()
   public specieId: number;
 
-  @Column("date")
-  public created_at: Date;
-
   @OneToOne(() => SpeciesModel)
   @JoinColumn()
   public specie: SpeciesModel;
 
   @Column("date")
+  public created_at: Date;
+
+  @Column("date")
   @AfterUpdate()
   public updated_at: Date;
 
-  static withID(id: number) : BreedsModel{
+  static withID(id: number): BreedsModel {
     const breedsModel = new BreedsModel();
     breedsModel.id = id;
     return breedsModel;
