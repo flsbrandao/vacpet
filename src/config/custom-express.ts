@@ -15,6 +15,7 @@ app.use(express.urlencoded({
 
 app.use('/assets', express.static('views/assets'));
 app.use('/node_modules', express.static('views/node_modules'));
+app.use('/images', express.static('uploads/'));
 
 routes(app);
 

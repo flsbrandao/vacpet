@@ -18,4 +18,8 @@ export default class PetsService {
   public async findForUser(petsDTO: PetsDTO) : Promise<PetsModel[]>{
     return await this.petsRepository.findForUser(petsDTO);
   }
+
+  public async findForId(petsDTO: PetsDTO) : Promise<PetsModel | undefined>{
+    return await this.petsRepository.findForId(petsDTO);
+  }
 }

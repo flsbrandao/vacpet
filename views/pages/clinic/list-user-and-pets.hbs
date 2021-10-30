@@ -1,0 +1,134 @@
+{{>menu-clinic}}
+<div class="main-content">
+  <section class="section">
+    <div class="section-header">
+      <h1>Tutor e Pets</h1>
+    </div>
+  </section>
+
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-6 col-lg-10">
+      <div class="card">
+        <div class="card-header">
+          <h4>Tutor</h4>
+        </div>
+        <div class="card-body row" id='card-user'>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="section-body">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class='table-responsive'>
+          <table class="table table-hover display" id="table-pets" style="width:100%">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Espécie</th>
+                <th>Raça</th>
+                <th>Nascimento</th>
+                <th>Ver mais</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  var id = window.location.pathname.split('/')[3];
+  $(document).ready(function () {
+
+    fetchUser();
+
+    var table = $('#table-pets').DataTable({
+      "processing": true,
+      "serverSide": true,
+      "search": false,
+      "ajax": {
+        "url": `/clinic/pets?user=${id}&`,
+        "type": "GET"
+      },
+      "columns": [
+        { "data": "nome" },
+        { "data": "specie.nome" },
+        { "data": "breed.nome" },
+        { "data": "data_nascimento" },
+        {
+          "targets": -1,
+          "className": 'btn-pets',
+          "data": null,
+          "defaultContent": "<button class='btn btn-outline-primary link' style='transition: 1s;'><i class='fas fa-paw'></i></button>"
+        }
+      ],
+
+      "language": {
+        "lengthMenu": "Exibir _MENU_ registros por página",
+        "zeroRecords": "Nenhum registro encontrado",
+        "info": "Mostrando página _PAGE_ de _PAGES_",
+        "infoEmpty": "Nenhum registro disponível",
+        "infoFiltered": "(filtrado de _MAX_ registros totais)",
+        "search": "Pesquisar:",
+        "paginate": {
+          "previous": "Anterior",
+          "next": "Próximo"
+        }
+      }
+
+    });//Datatable
+
+
+    // Adiciona ouvinte de evento para detalhes de abertura e fechamento
+    $('#table-pets tbody').on('click', 'td.btn-pets', function () {
+
+      var tr = $(this).closest('tr');
+      var row = table.row(tr);
+      var data = row.data()
+      console.log(data)
+      window.location.href = `/clinic/list-pet/${data.id}`
+
+    })
+
+  });
+
+  function fetchUser() {
+
+
+    $.ajax({
+      type: "GET",
+      url: `/clinic/users/${id}`,
+      success: (data) => {
+
+        $('#card-user').append(`
+        <div class='col-lg-3'><p>Nome: ${data.nome}</p></div>
+        <div class='col-lg-3'><p>CPF: ${data.cpf}</p></div>
+        <div class='col-lg-5'><p>E-mail: ${data.email}</p></div>
+        <div class='col-lg-3'><p>Celular: ${data.celular}</p></div>
+        <div class='col-lg-3'><p>Telefone: ${data.telefone}</p></div>
+        <div class='col-lg-5'><p>Endereço: ${data.endereco}</p></div>`);
+
+        swal.close();
+      },
+      beforeSend: () => {
+        loader();
+      },
+      error: (err) => {
+
+        if (err.responseJSON.message) {
+          messageSweetAlert(err.responseJSON.message, 'error');
+          return;
+        }
+        alert('Erro interno.');
+      }
+    }); // Ajax
+
+  }
+
+</script>

@@ -20,6 +20,10 @@
   <link rel="stylesheet" href="/assets/css/components.css">
 
   <script src="/assets/js/jquery.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/datatables.min.css"/>
+ 
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/datatables.min.js"></script>
 </head>
 
 <body>
@@ -39,7 +43,7 @@
 <!-- JS Libraies -->
 <script src="/node_modules/jquery-pwstrength/jquery.pwstrength.min.js"></script>
 <script src="/node_modules/selectric/public/jquery.selectric.min.js"></script>
-<script src="../node_modules/sweetalert/dist/sweetalert.min.js"></script>
+<script src="/node_modules/sweetalert/dist/sweetalert.min.js"></script>
 <!-- Template JS File -->
 <script src="/assets/js/scripts.js"></script>
 <script src="/assets/js/custom.js"></script>
@@ -65,6 +69,10 @@
 				icon: "/assets/img/gif/load.gif",
 			})
 	}
+
+  function closeSwal(){
+    swal.close();
+  }
 </script>
 </body>
 

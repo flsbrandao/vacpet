@@ -10,7 +10,7 @@ import {
 } from "typeorm";
 import BreedsModel from "./BreedsModel";
 import SpeciesModel from "./SpeciesModel";
-import UserModel from "./UserModel";
+import UsersModel from "./UsersModel";
 
 export enum SexoType {
   M = "M",
@@ -22,8 +22,8 @@ export default class PetsModel extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   public id: string;
 
-  @ManyToOne(() => UserModel, (user) => user.pet)
-  public user: UserModel;
+  @ManyToOne(() => UsersModel, (user) => user.pet)
+  public user: UsersModel;
 
   @Column()
   public foto?: string;

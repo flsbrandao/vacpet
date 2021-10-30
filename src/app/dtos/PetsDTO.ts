@@ -1,11 +1,12 @@
 import BreedsModel from "../models/BreedsModel";
 import { SexoType } from "../models/PetsModel";
 import SpeciesModel from "../models/SpeciesModel";
-import UserModel from "../models/UserModel";
+import UsersModel from "../models/UsersModel";
 import DTO from "./DTO";
 
 export default class PetsDTO extends DTO {
-  public user: UserModel;
+  public id: string;
+  public user: UsersModel;
   public nome: string;
   public specie: SpeciesModel;
   public sexo: SexoType;
@@ -13,20 +14,25 @@ export default class PetsDTO extends DTO {
   public data_nascimento: Date;
   public foto?: string;
 
-  static withID(user: UserModel) : PetsDTO {
+  static withId(id : string): PetsDTO{
+    const petsDTO = new PetsDTO();
+    petsDTO.id = id;
+    return petsDTO;
+  }
+  static withUser(user: UsersModel) : PetsDTO {
     const petsDTO = new PetsDTO();
     petsDTO.user = user;
     return petsDTO;
   }
 
   static withAll(
-    user: UserModel,
+    user: UsersModel,
     nome: string,
     specie: SpeciesModel,
     sexo: SexoType,
     breed: BreedsModel,
     data_nascimento: Date,
-    foto?: string
+    foto?: string 
   ): PetsDTO {
     const petsDTO = new PetsDTO();
     petsDTO.user = user;

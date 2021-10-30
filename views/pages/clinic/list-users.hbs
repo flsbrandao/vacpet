@@ -1,0 +1,87 @@
+{{>menu-clinic}}
+
+<div class="main-content">
+  <section class="section">
+    <div class="section-header">
+      <h1>Tutores</h1>
+    </div>
+
+    <div class="section-body">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class='table-responsive'>
+            <table class="table table-hover display" id="table-users" style="width:100%">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>CPF</th>
+                  <th>E-mail</th>
+                  <th>Telefone</th>
+                  <th>Celular</th>
+                  <th>Pets</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  $(document).ready(function () {
+
+    var table = $('#table-users').DataTable({
+      "processing": true,
+      "serverSide": true,
+      "search": false,
+      "ajax": {
+        "url": "/clinic/users",
+        "type": "GET"
+      },
+      "columns": [
+        { "data": "nome" },
+        { "data": "cpf" },
+        { "data": "email" },
+        { "data": "telefone" },
+        { "data": "celular" },
+        {
+          "targets": -1,
+          "className": 'btn-pets',
+          "data": null,
+          "defaultContent": "<button class='btn btn-outline-primary link' style='transition: 1s;'><i class='fas fa-paw'></i></button>"
+        }
+      ],
+
+      "language": {
+        "lengthMenu": "Exibir _MENU_ registros por página",
+        "zeroRecords": "Nenhum registro encontrado",
+        "info": "Mostrando página _PAGE_ de _PAGES_",
+        "infoEmpty": "Nenhum registro disponível",
+        "infoFiltered": "(filtrado de _MAX_ registros totais)",
+        "search": "Pesquisar:",
+        "paginate": {
+          "previous": "Anterior",
+          "next": "Próximo"
+        }
+      }
+
+    });//Datatable
+
+
+    // Adiciona ouvinte de evento para detalhes de abertura e fechamento
+    $('#table-users tbody').on('click', 'td.btn-pets', function () {
+
+      var tr = $(this).closest('tr');
+      var row = table.row(tr);
+      var data = row.data()
+      console.log(data)
+      window.location.href = `/clinic/user-and-pets/${data.id}`
+
+    })
+
+  });
+</script>

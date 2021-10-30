@@ -13,7 +13,7 @@
             <h4>Informações</h4>
           </div>
           <div class="card-body">
-            <form id="form-register-pets">
+            <form id="form-register-pets" method="post" enctype="multipart/form-data">
               <div class="form-group">
                 <label>Foto</label>
                 <input type="file" class="form-control" accept="image/png, image/jpeg" name="foto" />
@@ -128,18 +128,16 @@ function fetchSpecies(){
     }); // Ajax
 }
 
-$("#form-register-pets").submit(async (event) => {
+$("#form-register-pets").submit(function (event) {
     event.preventDefault();
-
+    var formData = new FormData(this);
     $.ajax({
       type: "POST",
       url: "/users/pets",
-      data: $("#form-register-pets").serialize(),
+      data: formData,
       success: (data) => {
         messageSweetAlert(data.message, 'success');
-      /*  setTimeout(() => {
-          window.location.href = "/login"
-        }, 3000)*/
+        this.reset();
       },
       beforeSend: () => {
         loader()
@@ -151,7 +149,19 @@ $("#form-register-pets").submit(async (event) => {
           return;
         }
         alert('Erro interno.');
-      }
+      },
+      cache: false,
+      contentType: false,
+      processData: false,
+       xhr: function() {  // Custom XMLHttpRequest
+            var myXhr = $.ajaxSettings.xhr();
+            if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
+                myXhr.upload.addEventListener('progress', function () {
+                    /* faz alguma coisa durante o progresso do upload */
+                }, false);
+            }
+        return myXhr;
+        }
     }); // Ajax
 
   });

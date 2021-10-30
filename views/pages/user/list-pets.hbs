@@ -7,12 +7,37 @@
 
     <div class="section-body">
       <div class="row">
-        <div class="col-12 col-md-6 col-lg-4">
+        <div class="col-12 col-md-6 col-lg-4 col-xl-4" id='card-pets'>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
 
+<script>
 
+$( document ).ready(() => {
+   fetchPets()
+});
+
+function collapse_pets(value){
+
+    $(value).collapse('toggle')
+}
+
+function fetchPets(){
+   $.ajax({
+      type: "GET",
+      url: `/users/pets`,
+      success: (data) => {
+      
+       data.forEach((item, index) => {
+          $('#card-pets').append(`     
+          
           <div class="card card-primary">
             <div class="card-header">
-              <h4>Cachorrão Dog mal</h4>
+              <h4>${item.nome}</h4>
               <div class="card-header-action">
                 <div class="btn-group">
                   <a href="#" class="btn btn-primary">Vacinação</a>
@@ -20,18 +45,22 @@
                 </div>
               </div>
             </div>
-            <img alt="image" src="../assets/img/example-image.jpg" class="img-fluid card-img-top" height="100px">
+            <img alt="image" src="${ item.foto ? '/images/' + item.foto : '../assets/img/example-image.jpg' }" class="img-fluid card-img-top" height="100px">
             <div class="card-body">
-              <p>Write something here</p>
+              <p>Espécie: ${item.specie.nome} </p>
+              <p>Raça: ${item.breed.nome} </p>
+              <p>Sexo: ${item.sexo}</p>
+              <p>Data de nascimento: ${item.data_nascimento}</p>
             </div>
             <div class="card-header">
-              <h4>Show/Hide</h4>
+              <h4>Prontuário</h4>
               <div class="card-header-action">
-                <a data-collapse="#mycard-collapse" class="btn btn-icon btn-info" href="#">
+                <button class="btn btn-primary" type="button" data-toggle="collapse${index}"  onclick ='collapse_pets("#collapse${index}")'>
                   <i class="fas fa-plus"></i></a>
+                </button>
               </div>
             </div>
-            <div class="collapse" id="mycard-collapse">
+            <div class="collapse" id="collapse${index}">
               <div class="card-body">
                 You can show or hide this card.
               </div>
@@ -39,9 +68,24 @@
                 Card Footer
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
+          </div>`);
+       });
+
+       swal.close()
+      },
+      beforeSend: () => {
+        loader()
+      },
+      error: (err) => {
+
+        if (err.responseJSON.message) {
+          messageSweetAlert(err.responseJSON.message, 'error');
+          return;
+        }
+        alert('Erro interno.');
+      }
+    }); // Ajax
+}
+
+
+</script>

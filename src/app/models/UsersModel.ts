@@ -9,7 +9,7 @@ import {
 import PetsModel from "./PetsModel";
 
 @Entity("users")
-export default class UserModel extends BaseEntity {
+export default class UsersModel extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   public id: string;
 
@@ -41,8 +41,8 @@ export default class UserModel extends BaseEntity {
   @OneToMany(()=> PetsModel, pets => pets.user)
   public pet : PetsModel[];
 
-  static withID(id: string) : UserModel{
-    const userModel = new UserModel();
+  static withID(id: string) : UsersModel{
+    const userModel = new UsersModel();
     userModel.id = id;
     return userModel;
   }
