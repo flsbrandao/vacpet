@@ -5,25 +5,30 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import BreedsModel from "./BreedsModel";
 import SpeciesModel from "./SpeciesModel";
 import UsersModel from "./UsersModel";
+import VaccinationModel from "./VaccinationModel";
 
 export enum SexoType {
   M = "M",
   F = "F",
 }
 
-@Entity('pets')
+@Entity("pets")
 export default class PetsModel extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
   public id: string;
 
   @ManyToOne(() => UsersModel, (user) => user.pet)
   public user: UsersModel;
+
+  @OneToMany(() => VaccinationModel, (vaccination) => vaccination.pet)
+  public vaccination: VaccinationModel[];
 
   @Column()
   public foto?: string;
@@ -45,7 +50,7 @@ export default class PetsModel extends BaseEntity {
   @JoinColumn()
   public breed: BreedsModel;
 
-  @Column({ type: 'date' })
+  @Column({ type: "date" })
   public data_nascimento: Date;
 
   @Column("date")

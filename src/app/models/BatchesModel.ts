@@ -1,5 +1,6 @@
-import { AfterUpdate, BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { AfterUpdate, BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import ManufacturersModel from "./ManufacturersModel";
+import VaccinationModel from "./VaccinationModel";
 import VaccinesModel from "./VaccinesModel";
 
 @Entity("batches")
@@ -17,10 +18,13 @@ export default class BatchesModel extends BaseEntity{
     @JoinColumn()
     public manufacture : ManufacturersModel;
 
-    @Column()
+    @OneToMany(()=> VaccinationModel, (vaccination) => vaccination.batche)
+    public vaccination: VaccinationModel[];
+
+    @Column('date')
     public data_fabricacao: Date;
 
-    @Column()
+    @Column('date')
     public data_vencimento: Date;
 
     @Column()

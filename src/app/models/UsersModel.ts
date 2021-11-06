@@ -38,10 +38,10 @@ export default class UsersModel extends BaseEntity {
   @AfterUpdate()
   public updated_at: Date;
 
-  @OneToMany(()=> PetsModel, pets => pets.user)
-  public pet : PetsModel[];
+  @OneToMany(() => PetsModel, (pets) => pets.user)
+  public pet: PetsModel[];
 
-  static withID(id: string) : UsersModel{
+  static withID(id: string): UsersModel {
     const userModel = new UsersModel();
     userModel.id = id;
     return userModel;
