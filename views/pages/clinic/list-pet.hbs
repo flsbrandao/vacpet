@@ -8,15 +8,7 @@
 
     <div class="row justify-content-center">
         <div class="col-12 col-md-6 col-lg-10">
-            {{!-- <div class="card">
-                <div class="card-header">
-                    <h4>Pet</h4>
-                </div>
-                <div class="card-body row" id='card-pet'>
-
-                </div>
-
-            </div> --}}
+           
             <div class="card profile-widget" id='card-pet'>
 
             </div>
@@ -59,14 +51,6 @@
             url: `/clinic/pets/${id}`,
             success: (data) => {
 
-                /*$('#card-pet').append(`
-                <div class='col-lg-3'><p>Nome: ${data.nome}</p></div>
-                <div class='col-lg-3'><p>Espécie: ${data.specie.nome}</p></div>
-                <div class='col-lg-3'><p>Raça: ${data.breed.nome}</p></div>
-                <div class='col-lg-3'><p>Nascimento: ${data.data_nascimento}</p></div>
-                <div class='col-lg-3'><p>Sexo: ${data.sexo}</p></div>
-                `);*/
-
                 $('#card-pet').append(`<div class="profile-widget-header">
                     <img alt="image" src="${data.foto ? '/images/' + data.foto : '../../assets/img/avatar/avatar-1.png'}" class="rounded-circle profile-widget-picture">
                     <div class="profile-widget-items">
@@ -92,19 +76,8 @@
                     consequat.</p>
                   </div>
                   <div class="card-footer text-center pt-0">
-                    <div class="font-weight-bold mb-2 text-small">Follow Hasan On</div>
-                    <a href="#" class="btn btn-social-icon mr-1 btn-facebook">
-                      <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#" class="btn btn-social-icon mr-1 btn-twitter">
-                      <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="#" class="btn btn-social-icon mr-1 btn-github">
-                      <i class="fab fa-github"></i>
-                    </a>
-                    <a href="#" class="btn btn-social-icon mr-1 btn-instagram">
-                      <i class="fab fa-instagram"></i>
-                    </a>
+                    <div class="font-weight-bold mb-2 text-small"><a class='btn btn-primary' href='/clinic/pet/${id}/vaccination'><i class="fas fa-syringe"></i>  Vacina</a></div>
+                    
                   </div>`);
           
 

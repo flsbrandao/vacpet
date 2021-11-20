@@ -19,28 +19,28 @@ export default class PetsDTO extends DTO {
     petsDTO.id = id;
     return petsDTO;
   }
-  static withUser(user: UsersModel) : PetsDTO {
+  static withUser(user: string) : PetsDTO {
     const petsDTO = new PetsDTO();
-    petsDTO.user = user;
+    petsDTO.user = UsersModel.withID(user);
     return petsDTO;
   }
 
   static withAll(
-    user: UsersModel,
+    user: string,
     nome: string,
-    specie: SpeciesModel,
-    sexo: SexoType,
-    breed: BreedsModel,
-    data_nascimento: Date,
+    specie: number,
+    sexo: string,
+    breed: number,
+    data_nascimento: string,
     foto?: string 
   ): PetsDTO {
     const petsDTO = new PetsDTO();
-    petsDTO.user = user;
+    petsDTO.user = UsersModel.withID(user);
     petsDTO.nome = nome;
-    petsDTO.specie = specie;
-    petsDTO.sexo = sexo;
-    petsDTO.breed = breed;
-    petsDTO.data_nascimento = data_nascimento;
+    petsDTO.specie = SpeciesModel.withID(specie);
+    petsDTO.sexo = sexo == "M" ? SexoType.M : SexoType.F;
+    petsDTO.breed = BreedsModel.withID(breed);
+    petsDTO.data_nascimento = new Date(data_nascimento);
     petsDTO.foto = foto;
 
     return petsDTO;

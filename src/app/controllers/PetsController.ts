@@ -38,12 +38,12 @@ class PetsController {
   ): Promise<Response | void> {
     try {
       const petsDTO = PetsDTO.withAll(
-        UsersModel.withID("20f4d6e9-566e-4a05-8158-31dcb8288aed"),
+        "20f4d6e9-566e-4a05-8158-31dcb8288aed",
         req.body.nome,
-        SpeciesModel.withID(req.body.specie),
-        req.body.sexo == "M" ? SexoType.M : SexoType.F,
-        BreedsModel.withID(req.body.breed),
-        new Date(req.body.data_nascimento),
+        req.body.specie,
+        req.body.sexo,
+        req.body.breed,
+        req.body.data_nascimento,
         req.file?.filename
       );
 
@@ -63,9 +63,7 @@ class PetsController {
   ): Promise<Response | void> {
     try {
       const petsService = new PetsService();
-      const petsDTO = PetsDTO.withUser(
-        UsersModel.withID("20f4d6e9-566e-4a05-8158-31dcb8288aed")
-      );
+      const petsDTO = PetsDTO.withUser("20f4d6e9-566e-4a05-8158-31dcb8288aed");
       const response = await petsService.findForUser(petsDTO);
 
       return res.json(response);
@@ -80,13 +78,12 @@ class PetsController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-   
       if (!req.query.user) {
         throw new MyCustomErrors("ID do usuário não informado", 404);
       }
       const petsService = new PetsService();
-      const usersModel = UsersModel.withID(req.query.user.toString());
-      const petsDTO = PetsDTO.withUser(usersModel);
+     
+      const petsDTO = PetsDTO.withUser(req.query.user.toString());
 
       const response = await petsService.findForUser(petsDTO);
       const response_for_datatable = {
@@ -106,15 +103,13 @@ class PetsController {
     res: Response,
     next: NextFunction
   ): Promise<Response | void> {
-    try{
-
+    try {
       const petsService = new PetsService();
-      const petsDTO =  PetsDTO.withId(req.params.id);
+      const petsDTO = PetsDTO.withId(req.params.id);
       const response = await petsService.findForId(petsDTO);
 
       return res.json(response);
-   
-    }catch(err){
+    } catch (err) {
       return next(err);
     }
   }

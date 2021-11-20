@@ -23,4 +23,10 @@ export default class VeretinariansModel extends BaseEntity {
   @Column("date")
   @AfterUpdate()
   public updated_at: Date;
+
+  static withID(id: string): VeretinariansModel {
+    const veretinariansModel = new VeretinariansModel();
+    veretinariansModel.id = id;
+    return veretinariansModel;
+  }
 }

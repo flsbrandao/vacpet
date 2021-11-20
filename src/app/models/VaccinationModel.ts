@@ -32,7 +32,7 @@ export default class VaccinationModel extends BaseEntity {
   @JoinColumn()
   public clinic: ClinicsModel;
 
-  @Column("date")
+  @Column('date')
   public data_vacinacao: Date;
 
   @Column("date")

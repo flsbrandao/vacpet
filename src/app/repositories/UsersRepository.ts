@@ -2,7 +2,7 @@ import UsersDTO from "../dtos/UsersDTO";
 import UsersModel from "../models/UsersModel";
 
 export default class UserRepository {
-  async create(userDTO: UsersDTO): Promise<UsersModel> {
+  public async create(userDTO: UsersDTO): Promise<UsersModel> {
     return await UsersModel.create(userDTO).save();
   }
 

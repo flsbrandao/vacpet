@@ -37,4 +37,10 @@ export default class BatchesModel extends BaseEntity{
     @AfterUpdate()
     public updated_at: Date;
 
+    static withID(id: string): BatchesModel {
+        const batchesModel = new BatchesModel();
+        batchesModel.id = id;
+        return batchesModel;
+    }
+
 }

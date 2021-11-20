@@ -23,4 +23,11 @@ export default class ClinicsModel extends BaseEntity{
     @Column("date")
     @AfterUpdate()
     public updated_at: Date;
+
+    static withID(id: string): ClinicsModel {
+        const clinicsModel = new ClinicsModel();
+        clinicsModel.id = id;
+        return clinicsModel;
+    }
+
 }

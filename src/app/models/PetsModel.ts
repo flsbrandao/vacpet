@@ -59,4 +59,10 @@ export default class PetsModel extends BaseEntity {
   @Column("date")
   @AfterUpdate()
   public updated_at: Date;
+
+  static withID(id: string): PetsModel {
+    const petsModel = new PetsModel();
+    petsModel.id = id;
+    return petsModel;
+  }
 }
