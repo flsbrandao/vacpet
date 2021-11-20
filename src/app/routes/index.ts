@@ -7,6 +7,7 @@ import species from "./species";
 import breeds from "./breeds";
 import vaccination from "./vaccination";
 import vaccines from './vaccines';
+import batches from './batches';
 
 export default (app: express.Application) => {
   app.use(login);
@@ -16,4 +17,5 @@ export default (app: express.Application) => {
   app.use(breeds);
   app.use(vaccination);
   app.use(vaccines);
+  app.use(batches);
 };

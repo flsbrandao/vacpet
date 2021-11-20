@@ -41,4 +41,10 @@ export default class VaccinesModel extends BaseEntity {
   @Column("date")
   @AfterUpdate()
   public updated_at: Date;
+
+  static withID(id: number) {
+    const vaccinesModel = new VaccinesModel();
+    vaccinesModel.id = id;
+    return vaccinesModel;
+  }
 }
