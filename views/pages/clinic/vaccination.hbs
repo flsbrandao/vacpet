@@ -1,12 +1,12 @@
 {{>menu-clinic}}
 <div class="main-content">
-    <section class="section">
-        <div class="section-header">
-            <h1>Vacina</h1>
-        </div>
-    </section>
+  <section class="section">
+    <div class="section-header">
+      <h1>Vacina</h1>
+    </div>
+  </section>
 
-    <div class="section-body">
+  <div class="section-body">
     <div class="row">
       <div class="col-12 col-md-6 col-lg-12">
         <div class="card">
@@ -14,23 +14,23 @@
             <h4>Informações</h4>
           </div>
           <div class="card-body">
-            <form id="form-register-pets" method="post" enctype="multipart/form-data">
+            <form id="form-register-vaccination" method="post" enctype="multipart/form-data">
               <div class="form-group">
                 <label>Vacina</label>
-                <select class="form-control" id="specie" name="specie" onchange="fetchBreeds(this.value)">
-                  <option></option>            
+                <select class="form-control" id="vaccine" name="vaccine" onchange="fetchBatche(this.value)">
+                  <option></option>
                 </select>
               </div>
               <div class="form-group">
                 <div class="form-group">
                   <label>Lote</label>
-                  <select class="form-control" id="breed" name="breed">
+                  <select class="form-control" id="batche" name="batche">
                     <option></option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label>Data</label>
-                  <input type="date" class="form-control" name='data_nascimento'/>
+                  <input type="date" class="form-control" name='data_vacinacao' />
                 </div>
               </div>
               <div>
@@ -42,23 +42,27 @@
       </div>
     </div>
   </div>
-  
+
 </div>
 <script>
-     var id = window.location.pathname.split('/')[3];
+  var id = window.location.pathname.split('/')[3];
 
-    $(document).ready(function () {
+  $(document).ready(function () {
 
-        
-    });
+    $("#form-register-vaccination").append(`<input type='hidden' name='pet' value='${id}'>`)
+    fetchVaccines()
+  });
 
-    function fetchVaccines(){
-       $.ajax({
+  function fetchVaccines() {
+    $.ajax({
       type: "GET",
-      url: `/clinic/users/${id}`,
+      url: `/clinic/vaccines/${id}`,
       success: (data) => {
 
-     
+        $('#vaccine').empty().append(`<option></option>`);
+        data.forEach((item) => {
+          $('#vaccine').append(`<option value=${item.id}> ${item.nome}</option>`);
+        });
         swal.close();
       },
       beforeSend: () => {
@@ -73,6 +77,60 @@
         alert('Erro interno.');
       }
     }); // Ajax
-    }
+  }
+
+  function fetchBatche(value) {
+    $.ajax({
+      type: "GET",
+      url: `/clinic/batches/${value}`,
+      success: (data) => {
+
+        $('#batche').empty().append(`<option></option>`);
+        data.forEach((item) => {
+          $('#batche').append(`<option value=${item.id}> ${item.codigo_lote}</option>`);
+        });
+        swal.close();
+      },
+      beforeSend: () => {
+        loader();
+      },
+      error: (err) => {
+
+        if (err.responseJSON.message) {
+          messageSweetAlert(err.responseJSON.message, 'error');
+          return;
+        }
+        alert('Erro interno.');
+      }
+    }); // Ajax
+  }
+
+  $("#form-register-vaccination").submit(function (event) {
+    event.preventDefault();
+
+    $.ajax({
+      type: "POST",
+      url: "/clinic/vaccination",
+      data: $("#form-register-vaccination").serialize(),
+      success: (data) => {
+        messageSweetAlert(data.message, 'success');
+        setTimeout(() => {
+          window.location.href = `/clinic/list-pet/${id}`
+        }, 3000)
+      },
+      beforeSend: () => {
+        loader()
+      },
+      error: (err) => {
+
+        if (err.responseJSON.message) {
+          messageSweetAlert(err.responseJSON.message, 'error');
+          return;
+        }
+        alert('Erro interno.');
+      },
+    }); // Ajax
+
+  });
 
 </script>

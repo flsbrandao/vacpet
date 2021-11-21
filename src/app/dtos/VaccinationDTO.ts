@@ -29,4 +29,10 @@ export default class VaccinationDTO extends DTO {
 
     return vaccinationDTO;
   }
+
+  static withPet(pet:string){
+    const vaccinationDTO = new VaccinationDTO();
+    vaccinationDTO.pet =  PetsModel.withID(pet);
+    return vaccinationDTO;
+  }
 }
