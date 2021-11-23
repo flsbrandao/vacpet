@@ -22,11 +22,12 @@
                     <table class="table table-hover display" id="table-vaccines" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Nome</th>
-                                <th>Espécie</th>
-                                <th>Raça</th>
-                                <th>Nascimento</th>
-                                <th>Ver mais</th>
+                                <th>Vacina</th>
+                                <th>Lote</th>
+                                <th>Data Vacinação</th>
+                                <th>Veterinário</th>
+                                <th>Clinica</th>
+
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -53,17 +54,11 @@
                 "type": "GET"
             },
             "columns": [
-                { "data": "nome" },
-                { "data": "cpf" },
-                { "data": "email" },
-                { "data": "telefone" },
-                { "data": "celular" },
-                {
-                    "targets": -1,
-                    "className": 'btn-pets',
-                    "data": null,
-                    "defaultContent": "<button class='btn btn-outline-primary link' style='transition: 1s;'><i class='fas fa-paw'></i></button>"
-                }
+                { "data": "vacina" },
+                { "data": "codigo_lote" },
+                { "data": "t1_data_vacinacao" },
+                { "data": "veterinario" },
+                { "data": "clinica" },
             ],
 
             "language": {

@@ -45,7 +45,14 @@ class VaccinationController {
 
       const response = await vaccinationService.findForPet(vaccinationDTO);
 
-      return res.json(response);
+      const response_for_datatable = {
+        draw: req.query.draw,
+        recordsTotal: 10,
+        recordsFiltered: 10,
+        data: response,
+      };
+
+      return res.json(response_for_datatable);
     } catch (err) {
       return next(err);
     }

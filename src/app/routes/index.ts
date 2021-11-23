@@ -6,9 +6,9 @@ import users from "./users";
 import species from "./species";
 import breeds from "./breeds";
 import vaccination from "./vaccination";
-import vaccines from './vaccines';
-import batches from './batches';
-
+import vaccines from "./vaccines";
+import batches from "./batches";
+import clinics from "./clinics";
 export default (app: express.Application) => {
   app.use(login);
   app.use(users);
@@ -18,4 +18,5 @@ export default (app: express.Application) => {
   app.use(vaccination);
   app.use(vaccines);
   app.use(batches);
+  app.use(clinics);
 };
