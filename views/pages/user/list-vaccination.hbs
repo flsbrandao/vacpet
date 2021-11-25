@@ -1,0 +1,135 @@
+{{>menu-user}}
+<div class="main-content">
+    <section class="section">
+        <div class="section-header">
+            <h1>Vacinação</h1>
+        </div>
+
+        <div class="section-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class='table-responsive'>
+                        <table class="table table-hover display" id="table-vaccines" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Vacina</th>
+                                    <th>Lote</th>
+                                    <th>Data Vacinação</th>
+                                    <th>Veterinário</th>
+                                    <th>Clinica</th>
+
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<script>
+    var id = window.location.pathname.split('/')[3];
+    $(document).ready(function () {
+
+        fetchPet();
+
+        var table = $('#table-vaccines').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "search": false,
+            "ajax": {
+                "url": `/clinic/vaccination/${id}`,
+                "type": "GET"
+            },
+            "columns": [
+                { "data": "vacina" },
+                { "data": "codigo_lote" },
+                { "data": "t1_data_vacinacao" },
+                { "data": "veterinario" },
+                { "data": "clinica" },
+            ],
+            "columnDefs": [
+                {      //Faz o tratamento do campo status 
+                    "render": function (data, type, row) {
+                        date = new Date(data);
+                        dataFormatada = date.toLocaleDateString('pt-BR', { timeZone: 'UTC' });
+                        return dataFormatada
+                    },
+                    "targets": 2
+                },
+            ],
+
+            "language": {
+                "lengthMenu": "Exibir _MENU_ registros por página",
+                "zeroRecords": "Nenhum registro encontrado",
+                "info": "Mostrando página _PAGE_ de _PAGES_",
+                "infoEmpty": "Nenhum registro disponível",
+                "infoFiltered": "(filtrado de _MAX_ registros totais)",
+                "search": "Pesquisar:",
+                "paginate": {
+                    "previous": "Anterior",
+                    "next": "Próximo"
+                }
+            }
+
+        });//Datatable
+
+    });
+
+    function fetchPet() {
+        $.ajax({
+            type: "GET",
+            url: `/clinic/pets/${id}`,
+            success: (data) => {
+
+                $('#card-pet').append(`<div class="profile-widget-header">
+                    <img alt="image" src="${data.foto ? '/images/' + data.foto : '../../assets/img/avatar/avatar-1.png'}" class="rounded-circle profile-widget-picture">
+                    <div class="profile-widget-items">
+                      <div class="profile-widget-item">
+                        <div class="profile-widget-item-label">Espécie</div>
+                        <div class="profile-widget-item-value">${data.specie.nome}</div>
+                      </div>
+                      <div class="profile-widget-item">
+                        <div class="profile-widget-item-label">Raça</div>
+                        <div class="profile-widget-item-value">${data.breed.nome}</div>
+                      </div>
+                      <div class="profile-widget-item">
+                        <div class="profile-widget-item-label">Sexo</div>
+                        <div class="profile-widget-item-value"> ${data.sexo}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="profile-widget-description pb-0">
+                    <div class="profile-widget-name">${data.nome}</div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat.</p>
+                  </div>
+                  <div class="card-footer text-center pt-0">
+                    <div class="font-weight-bold mb-2 text-small"><a class='btn btn-primary' href='/clinic/pet/${id}/vaccination'><i class="fas fa-syringe"></i>  Vacina</a></div>
+                    
+                  </div>`);
+
+
+                swal.close();
+            },
+            beforeSend: () => {
+                loader();
+            },
+            error: (err) => {
+
+                if (err.responseJSON.message) {
+                    messageSweetAlert(err.responseJSON.message, 'error');
+                    return;
+                }
+                alert('Erro interno.');
+            }
+        }); // Ajax
+    }
+
+</script>

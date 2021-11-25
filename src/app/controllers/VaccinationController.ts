@@ -10,6 +10,18 @@ class VaccinationController {
       return next(err);
     }
   }
+
+  public renderFindForPet(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): void {
+    try {
+      return res.render("pages/user/list-vaccination");
+    } catch (err) {
+      return next(err);
+    }
+  }
   public async create(
     req: Request,
     res: Response,
