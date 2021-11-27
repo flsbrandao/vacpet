@@ -3,6 +3,14 @@ import MedicalRecordDTO from "../dtos/MedicalRecordDTO";
 import MedicalRecordService from "../services/MedicalRecordService";
 
 class MedicalRecordController {
+  public renderCreate(req: Request, res: Response, next: NextFunction): void {
+    try {
+      return res.render("pages/clinic/medicalrecord")
+    } catch (err) {
+      return next(err);
+    }
+  }
+
   public async createOrUpdate(
     req: Request,
     res: Response,

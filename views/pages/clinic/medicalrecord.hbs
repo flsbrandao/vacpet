@@ -1,0 +1,109 @@
+{{>menu-clinic}}
+<div class="main-content">
+    <section class="section">
+        <div class="section-header">
+            <h1>Prontuário</h1>
+        </div>
+    </section>
+
+    <div class="section-body">
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Informações</h4>
+                    </div>
+                    <div class="card-body">
+                        <form id="form-register-medicalrecord" method="post" enctype="multipart/form-data">
+                            <div class="form-group ">
+                                <label>Alergias</label>
+                                <textarea class="form-control" rows="5" style="  height: 120px; resize: none;"
+                                    id='alergia' name='alergia'></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Doenças</label>
+                                <textarea class="form-control" rows="5" style="  height: 120px; resize: none;"
+                                    id='doenca' name='doenca'></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Peso</label>
+                                <input type="text" class="form-control" name='peso' id='peso' />
+                            </div>
+                            <div class="form-group">
+                                <label>Medicamentos</label>
+                                <textarea class="form-control" rows="5" style="  height: 120px; resize: none;"
+                                    id='medicamentos' name='medicamentos'></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Pelagem</label>
+                                <input type="text" class="form-control" name='pelagem' id='pelagem' />
+                            </div>
+                            <div class="form-group">
+                                <label>Porte</label>
+                                <select class="form-control" id="porte" name="porte">
+                                    <option></option>
+                                    <option value="P">Pequeno</option>
+                                    <option value="M">Médio</option>
+                                    <option value="G">Grande</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Parasitário Interno</label>
+                                <textarea class="form-control" rows="5" style="  height: 120px; resize: none;"
+                                    id='parasitario_interno' name='parasitario_interno'></textarea>
+                            </div>
+                             <div class="form-group">
+                                <label>Parasitário Externo</label>
+                                <textarea class="form-control" rows="5" style="  height: 120px; resize: none;"
+                                    id='parasitario_externo' name='parasitario_externo'></textarea>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary" type="submit">Cadastrar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    var id = window.location.pathname.split('/')[3];
+
+    $(document).ready(function () {
+
+        $("#form-register-medicalrecord").append(`<input type='hidden' name='pet' value='${id}'>`)
+
+    });
+
+
+    $("#form-register-medicalrecord").submit(function (event) {
+        event.preventDefault();
+
+        $.ajax({
+            type: "POST",
+            url: "/clinic/medicalrecord",
+            data: $("#form-register-medicalrecord").serialize(),
+            success: (data) => {
+                messageSweetAlert(data.message, 'success');
+                setTimeout(() => {
+                    window.location.href = `/clinic/list-pet/${id}`
+                }, 3000)
+            },
+            beforeSend: () => {
+                loader()
+            },
+            error: (err) => {
+
+                if (err.responseJSON.message) {
+                    messageSweetAlert(err.responseJSON.message, 'error');
+                    return;
+                }
+                alert('Erro interno.');
+            },
+        }); // Ajax
+
+    });
+
+</script>
