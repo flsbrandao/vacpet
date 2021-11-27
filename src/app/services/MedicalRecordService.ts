@@ -1,3 +1,4 @@
+import MedicalRecordDTO from "../dtos/MedicalRecordDTO";
 import MedicalRecordRepostory from "../repositories/MedicalRecordRepository";
 
 export default class MedicalRecordService {
@@ -7,11 +8,19 @@ export default class MedicalRecordService {
     this.medicalRecordRepository = new MedicalRecordRepostory();
   }
 
-  public async create(){
+  public async createOrUpdate(
+    medicalRecordDTO: MedicalRecordDTO
+  ): Promise<object> {
+    const response = await this.medicalRecordRepository.findForPet(
+      medicalRecordDTO
+    );
+   
+    if (!response) {
+      await this.medicalRecordRepository.create(medicalRecordDTO);
+    } else {
+      await this.medicalRecordRepository.update(medicalRecordDTO);
+    }
 
-  }
-
-  public async update(){
-      
+    return { message: "Prontuário atualizado com sucesso!" };
   }
 }

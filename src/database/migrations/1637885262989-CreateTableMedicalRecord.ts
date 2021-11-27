@@ -28,10 +28,12 @@ export class CreateTableMedicalRecord1637885262989
           {
             name: "alergia",
             type: "text",
+            isNullable: true,
           },
           {
             name: "doenca",
             type: "text",
+            isNullable: true,
           },
           {
             name: "peso",
@@ -44,6 +46,7 @@ export class CreateTableMedicalRecord1637885262989
           {
             name: "pelagem",
             type: "varchar",
+            isNullable: true,
           },
           {
             name: "porte",
@@ -53,10 +56,12 @@ export class CreateTableMedicalRecord1637885262989
           {
             name: "parasitario_interno",
             type: "text",
+            isNullable: true,
           },
           {
             name: "parasitario_externo",
             type: "text",
+            isNullable: true,
           },
           {
             name: "created_at",

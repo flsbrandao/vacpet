@@ -13,8 +13,18 @@ export default class MedicalRecordRepostory {
     medicalRecordDTO: MedicalRecordDTO
   ): Promise<UpdateResult> {
     return await MedicalRecordModel.update(
-      medicalRecordDTO.pet,
+      {
+        pet: medicalRecordDTO.pet,
+      },
       medicalRecordDTO
     );
+  }
+
+  public async findForPet(
+    medicalRecordDTO: MedicalRecordDTO
+  ): Promise<MedicalRecordModel | undefined> {
+    return await MedicalRecordModel.findOne({
+      where: { pet: medicalRecordDTO.pet },
+    });
   }
 }
