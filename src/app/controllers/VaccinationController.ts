@@ -5,7 +5,19 @@ import VaccinationService from "../services/VaccinationService";
 class VaccinationController {
   public renderCreate(req: Request, res: Response, next: NextFunction): void {
     try {
-      return res.render("pages/clinic/vaccination");
+      return res.render("pages/clinic/register-vaccination");
+    } catch (err) {
+      return next(err);
+    }
+  }
+
+  public renderFindForPet(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): void {
+    try {
+      return res.render("pages/user/list-vaccination");
     } catch (err) {
       return next(err);
     }

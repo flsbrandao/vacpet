@@ -68,6 +68,16 @@
           "defaultContent": "<button class='btn btn-outline-primary link' style='transition: 1s;'><i class='fas fa-paw'></i></button>"
         }
       ],
+      "columnDefs": [
+        {      //Faz o tratamento do campo status 
+          "render": function (data, type, row) {
+            date = new Date(data);
+            dataFormatada = date.toLocaleDateString('pt-BR', { timeZone: 'UTC' });
+            return dataFormatada
+          },
+          "targets": 3
+        },
+      ],
 
       "language": {
         "lengthMenu": "Exibir _MENU_ registros por página",

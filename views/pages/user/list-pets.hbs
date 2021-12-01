@@ -16,40 +16,42 @@
 
 <script>
 
-$( document ).ready(() => {
-   fetchPets()
-});
+  $(document).ready(() => {
+    fetchPets()
+  });
 
-function collapse_pets(value){
+  function collapse_pets(value) {
 
     $(value).collapse('toggle')
-}
+  }
 
-function fetchPets(){
-   $.ajax({
+  function fetchPets() {
+    $.ajax({
       type: "GET",
       url: `/users/pets`,
       success: (data) => {
-      
-       data.forEach((item, index) => {
+
+        data.forEach((item, index) => {
+          date = new Date(item.data_nascimento);
+          dataFormatada = date.toLocaleDateString('pt-BR', { timeZone: 'UTC' });
           $('#card-pets').append(`     
           
           <div class="card card-primary">
             <div class="card-header">
               <h4>${item.nome}</h4>
               <div class="card-header-action">
-                <div class="btn-group">
-                  <a href="#" class="btn btn-primary">Vacinação</a>
-                  <a href="#" class="btn btn-primary">Medicamentos</a>
+                <div class="">
+                  <a href="/users/list-vaccination/${item.id}" class="btn btn-primary">Vacinação</a>
+                 
                 </div>
               </div>
             </div>
-            <img alt="image" src="${ item.foto ? '/images/' + item.foto : '../assets/img/example-image.jpg' }" class="img-fluid card-img-top" height="100px">
+            <img alt="image" src="${item.foto ? '/images/' + item.foto : '../assets/img/example-image.jpg'}" class="img-fluid card-img-top" height="100px">
             <div class="card-body">
               <p>Espécie: ${item.specie.nome} </p>
               <p>Raça: ${item.breed.nome} </p>
               <p>Sexo: ${item.sexo}</p>
-              <p>Data de nascimento: ${item.data_nascimento}</p>
+              <p>Data de nascimento: ${dataFormatada}</p>
             </div>
             <div class="card-header">
               <h4>Prontuário</h4>
@@ -68,9 +70,9 @@ function fetchPets(){
               </div>
             </div>
           </div>`);
-       });
+        });
 
-       swal.close()
+        swal.close()
       },
       beforeSend: () => {
         loader()
@@ -84,7 +86,7 @@ function fetchPets(){
         alert('Erro interno.');
       }
     }); // Ajax
-}
+  }
 
 
 </script>

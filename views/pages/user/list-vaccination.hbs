@@ -1,43 +1,35 @@
-{{>menu-clinic}}
+{{>menu-user}}
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Pet e Vacinas</h1>
+            <h1>Vacinação</h1>
+        </div>
+
+        <div class="section-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class='table-responsive'>
+                        <table class="table table-hover display" id="table-vaccines" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Vacina</th>
+                                    <th>Lote</th>
+                                    <th>Data Vacinação</th>
+                                    <th>Veterinário</th>
+                                    <th>Clinica</th>
+
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </section>
-
-    <div class="row justify-content-center">
-        <div class="col-12 col-md-6 col-lg-10">
-
-            <div class="card profile-widget" id='card-pet'>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="section-body">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class='table-responsive'>
-                    <table class="table table-hover display" id="table-vaccines" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>Vacina</th>
-                                <th>Lote</th>
-                                <th>Data Vacinação</th>
-                                <th>Veterinário</th>
-                                <th>Clinica</th>
-
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-
-            </div>
-        </div>
-    </div>
 </div>
+
 
 <script>
     var id = window.location.pathname.split('/')[3];
@@ -60,7 +52,7 @@
                 { "data": "veterinario" },
                 { "data": "clinica" },
             ],
-             "columnDefs": [
+            "columnDefs": [
                 {      //Faz o tratamento do campo status 
                     "render": function (data, type, row) {
                         date = new Date(data);
@@ -113,13 +105,13 @@
                   </div>
                   <div class="profile-widget-description pb-0">
                     <div class="profile-widget-name">${data.nome}</div>
-                   
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat.</p>
                   </div>
                   <div class="card-footer text-center pt-0">
-                    <div class="font-weight-bold mb-2 text-small">
-                        <a class='btn btn-primary' href='/clinic/register-vaccination/${id}'><i class="fas fa-syringe"></i>  Vacina</a>
-                        <a class='btn btn-primary' href='/clinic/register-medicalrecord/${id}'><i class="fas fa-notes-medical"></i>  Prontuário</a>
-                    </div>
+                    <div class="font-weight-bold mb-2 text-small"><a class='btn btn-primary' href='/clinic/pet/${id}/vaccination'><i class="fas fa-syringe"></i>  Vacina</a></div>
                     
                   </div>`);
 

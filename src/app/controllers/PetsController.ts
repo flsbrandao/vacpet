@@ -1,11 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import PetsDTO from "../dtos/PetsDTO";
 import MyCustomErrors from "../helpers/MyCustomErrors";
-import BreedsModel from "../models/BreedsModel";
-import PetsModel, { SexoType } from "../models/PetsModel";
-import SpeciesModel from "../models/SpeciesModel";
-import UsersModel from "../models/UsersModel";
 import PetsService from "../services/PetsService";
+
 class PetsController {
   public renderCreate(req: Request, res: Response, next: NextFunction): void {
     try {
