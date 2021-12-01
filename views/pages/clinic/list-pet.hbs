@@ -60,6 +60,16 @@
                 { "data": "veterinario" },
                 { "data": "clinica" },
             ],
+             "columnDefs": [
+                {      //Faz o tratamento do campo status 
+                    "render": function (data, type, row) {
+                        date = new Date(data);
+                        dataFormatada = date.toLocaleDateString('pt-BR', { timeZone: 'UTC' });
+                        return dataFormatada
+                    },
+                    "targets": 2
+                },
+            ],
 
             "language": {
                 "lengthMenu": "Exibir _MENU_ registros por página",
@@ -107,8 +117,8 @@
                   </div>
                   <div class="card-footer text-center pt-0">
                     <div class="font-weight-bold mb-2 text-small">
-                        <a class='btn btn-primary' href='/clinic/pet/${id}/vaccination'><i class="fas fa-syringe"></i>  Vacina</a>
-                        <a class='btn btn-primary' href='/clinic/medicalrecord/${id}'><i class="fas fa-notes-medical"></i>  Prontuário</a>
+                        <a class='btn btn-primary' href='/clinic/register-vaccination/${id}'><i class="fas fa-syringe"></i>  Vacina</a>
+                        <a class='btn btn-primary' href='/clinic/register-medicalrecord/${id}'><i class="fas fa-notes-medical"></i>  Prontuário</a>
                     </div>
                     
                   </div>`);

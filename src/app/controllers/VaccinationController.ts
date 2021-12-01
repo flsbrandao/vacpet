@@ -5,7 +5,7 @@ import VaccinationService from "../services/VaccinationService";
 class VaccinationController {
   public renderCreate(req: Request, res: Response, next: NextFunction): void {
     try {
-      return res.render("pages/clinic/vaccination");
+      return res.render("pages/clinic/register-vaccination");
     } catch (err) {
       return next(err);
     }

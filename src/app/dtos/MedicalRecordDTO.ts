@@ -41,4 +41,10 @@ export default class MedicalRecordDTO extends DTO {
 
     return medicalRecordDTO;
   }
+
+  static withPet(pet: string): MedicalRecordDTO {
+    const medicalRecordDTO = new MedicalRecordDTO();
+    medicalRecordDTO.pet = PetsModel.withID(pet);
+    return medicalRecordDTO;
+  }
 }

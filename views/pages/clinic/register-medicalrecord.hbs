@@ -52,13 +52,14 @@
                                 <textarea class="form-control" rows="5" style="  height: 120px; resize: none;"
                                     id='parasitario_interno' name='parasitario_interno'></textarea>
                             </div>
-                             <div class="form-group">
+                            <div class="form-group">
                                 <label>Parasitário Externo</label>
                                 <textarea class="form-control" rows="5" style="  height: 120px; resize: none;"
                                     id='parasitario_externo' name='parasitario_externo'></textarea>
                             </div>
                             <div>
-                                <button class="btn btn-primary" type="submit">Cadastrar</button>
+                                <button class="btn btn-primary" type="submit">Salvar</button>
+                                 <button class="btn btn-primary" type="button" onclick="voltar()">Voltar</button>
                             </div>
                         </form>
                     </div>
@@ -74,8 +75,50 @@
     $(document).ready(function () {
 
         $("#form-register-medicalrecord").append(`<input type='hidden' name='pet' value='${id}'>`)
-
+        fetchMedicalRecord()
     });
+
+    function fetchMedicalRecord(){
+      
+        $.ajax({
+            type: "GET",
+            url: `/clinic/medicalrecord/${id}`,
+            success: (data) => {
+
+                $("#alergia").val(data.alergia);
+                $("#doenca").val(data.doenca);
+                $("#peso").val(data.peso);
+                $("#medicamentos").val(data.medicamentos);
+                $("#pelagem").val(data.pelagem);
+                $("#porte").val(data.porte);
+                $("#parasitario_interno").val(data.parasitario_interno);
+                $("#parasitario_externo").val(data.parasitario_externo);
+
+
+
+
+                console.log(data)
+                swal.close();
+            },
+            beforeSend: () => {
+                loader();
+            },
+            error: (err) => {
+
+                if (err.responseJSON.message) {
+                    messageSweetAlert(err.responseJSON.message, 'error');
+                    return;
+                }
+                alert('Erro interno.');
+            }
+        }); // Ajax
+        
+    }
+
+
+    function voltar(){
+        window.location.href = `/clinic/list-pet/${id}`
+    }
 
 
     $("#form-register-medicalrecord").submit(function (event) {
@@ -87,9 +130,7 @@
             data: $("#form-register-medicalrecord").serialize(),
             success: (data) => {
                 messageSweetAlert(data.message, 'success');
-                setTimeout(() => {
-                    window.location.href = `/clinic/list-pet/${id}`
-                }, 3000)
+                
             },
             beforeSend: () => {
                 loader()
@@ -105,5 +146,7 @@
         }); // Ajax
 
     });
+
+
 
 </script>

@@ -5,7 +5,7 @@ import MedicalRecordService from "../services/MedicalRecordService";
 class MedicalRecordController {
   public renderCreate(req: Request, res: Response, next: NextFunction): void {
     try {
-      return res.render("pages/clinic/medicalrecord")
+      return res.render("pages/clinic/register-medicalrecord");
     } catch (err) {
       return next(err);
     }
@@ -36,6 +36,22 @@ class MedicalRecordController {
       );
 
       return res.status(201).json(response);
+    } catch (err) {
+      return next(err);
+    }
+  }
+
+  public async findForPet(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response | void> {
+    try {
+      const medicalRecordDTO = MedicalRecordDTO.withPet(req.params.pet);
+      const medicalRecordService = new MedicalRecordService();
+      const response = await medicalRecordService.findForPet(medicalRecordDTO);
+
+      return res.json(response);
     } catch (err) {
       return next(err);
     }
