@@ -1,26 +1,26 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-enum LoginType{
-    V = 'V',
-    U = 'U'
+export enum LoginType {
+  V = "V",
+  U = "U",
 }
-@Entity('login')
-export default class LoginModel extends BaseEntity{
-    @PrimaryGeneratedColumn("uuid")
-    public id: string;
-  
-    @Column()
-    public userId: string;
+@Entity("login")
+export default class LoginModel extends BaseEntity {
+  @PrimaryGeneratedColumn("uuid")
+  public id: string;
 
-    @Column()
-    public email: string;
+  @Column()
+  public userId: string;
 
-    @Column()
-    public password: string;
+  @Column()
+  public email: string;
 
-    @Column({
-        type: "enum",
-        enum: LoginType,
-      })
-      public tipo: LoginType;
+  @Column()
+  public password: string;
+
+  @Column({
+    type: "enum",
+    enum: LoginType,
+  })
+  public tipo: LoginType;
 }

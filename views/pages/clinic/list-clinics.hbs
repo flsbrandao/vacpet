@@ -1,0 +1,58 @@
+<div class="container">
+    <section class="section mt-3">
+        <div class="section-header">
+            <h1>Pet e Vacinas</h1>
+        </div>
+    </section>
+    <div class="section-body">
+        <div class="row" id='card-clinics'>
+            
+
+   
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+
+    $(document).ready(() => {
+        fetchClinics()
+    });
+
+    function fetchClinics() {
+        $.ajax({
+            type: "GET",
+            url: `/users/clinics`,
+            success: (data) => {
+
+                data.forEach((item, index) => {
+                    $('#card-clinics').append(`
+                    <div class="col-12 col-md-6 col-lg-3" >     
+                        <a href="/clinic/selected/${item.id}">
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h4>${item.nome}</h4>
+                                </div>
+                            </div>
+                        </a>
+                    </div>`);
+                });
+
+                swal.close()
+            },
+            beforeSend: () => {
+                loader()
+            },
+            error: (err) => {
+
+                if (err.responseJSON.message) {
+                    messageSweetAlert(err.responseJSON.message, 'error');
+                    return;
+                }
+                alert('Erro interno.');
+            }
+        }); // Ajax
+    }
+</script>

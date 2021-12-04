@@ -14,12 +14,12 @@ export default class PetsDTO extends DTO {
   public data_nascimento: Date;
   public foto?: string;
 
-  static withId(id : string): PetsDTO{
+  static withId(id: string): PetsDTO {
     const petsDTO = new PetsDTO();
     petsDTO.id = id;
     return petsDTO;
   }
-  static withUser(user: string) : PetsDTO {
+  static withUser(user: string): PetsDTO {
     const petsDTO = new PetsDTO();
     petsDTO.user = UsersModel.withID(user);
     return petsDTO;
@@ -32,15 +32,16 @@ export default class PetsDTO extends DTO {
     sexo: string,
     breed: number,
     data_nascimento: string,
-    foto?: string 
+    foto?: string
   ): PetsDTO {
     const petsDTO = new PetsDTO();
+
     petsDTO.user = UsersModel.withID(user);
     petsDTO.nome = nome;
     petsDTO.specie = SpeciesModel.withID(specie);
     petsDTO.sexo = sexo == "M" ? SexoType.M : SexoType.F;
     petsDTO.breed = BreedsModel.withID(breed);
-    petsDTO.data_nascimento = new Date(data_nascimento);
+    petsDTO.data_nascimento = petsDTO.addDayToTheDate(data_nascimento);
     petsDTO.foto = foto;
 
     return petsDTO;

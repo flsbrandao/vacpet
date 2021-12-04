@@ -41,15 +41,14 @@ class UsersController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      const { nome, cpf, email, endereco, celular, telefone } = req.body;
-
       const userDTO = UsersDTO.withAll(
-        nome,
-        cpf,
-        email,
-        endereco,
-        celular,
-        telefone
+        req.body.nome,
+        req.body.cpf,
+        req.body.email,
+        req.body.password,
+        req.body.endereco,
+        req.body.celular,
+        req.body.telefone
       );
 
       const userService = new UsersService();
@@ -88,7 +87,6 @@ class UsersController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
-      
       const id = req.params.id.toString();
       const usersDTO = UsersDTO.withID(id);
       const userService = new UsersService();
