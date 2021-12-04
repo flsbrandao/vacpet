@@ -10,9 +10,11 @@ import vaccines from "./vaccines";
 import batches from "./batches";
 import clinics from "./clinics";
 import medicalrecord from "./medicalrecord";
+import isAuthenticated from "../../config/authenticate";
 
 export default (app: express.Application) => {
   app.use(login);
+  app.use(isAuthenticated);
   app.use(users);
   app.use(pets);
   app.use(species);

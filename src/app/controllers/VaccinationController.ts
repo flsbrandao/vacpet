@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import VaccinationDTO from "../dtos/VaccinationDTO";
+import MyCustomErrors from "../helpers/MyCustomErrors";
 import VaccinationService from "../services/VaccinationService";
 
 class VaccinationController {
@@ -28,11 +29,24 @@ class VaccinationController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
+      if (!req.user) {
+        throw new MyCustomErrors(
+          "Erro interno. Tente novamente mais tarde",
+          409
+        );
+      }
+
+      if (!req.user.clinicId) {
+        throw new MyCustomErrors(
+          "Erro interno. Tente novamente mais tarde",
+          409
+        );
+      }
       const vaccinationDTO = VaccinationDTO.withAll(
         req.body.pet,
         req.body.batche,
-        "9f5067c8-3f17-11ec-8edf-d08e79dd7c08",
-        "ac739294-3999-11ec-bc02-d08e79dd7c08",
+        req.user.userId,
+        req.user.clinicId,
         req.body.data_vacinacao
       );
 

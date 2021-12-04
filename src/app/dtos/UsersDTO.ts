@@ -5,6 +5,7 @@ export default class UsersDTO extends DTO {
   public nome: string;
   public cpf: string;
   public email: string;
+  public password: string;
   public endereco: string;
   public celular: string;
   public telefone: string;
@@ -13,23 +14,25 @@ export default class UsersDTO extends DTO {
     nome: string,
     cpf: string,
     email: string,
+    password: string,
     endereco: string,
     celular: string,
-    telefone: string = "",
-    id: string = ""
+    telefone?: string,
+    id?: string
   ): UsersDTO {
     const usersDTO = new UsersDTO();
     usersDTO.nome = nome;
     usersDTO.cpf = usersDTO.onlyNumbers(cpf);
     usersDTO.email = email;
+    usersDTO.password = password;
     usersDTO.endereco = endereco;
     usersDTO.celular = usersDTO.onlyNumbers(celular);
-    usersDTO.telefone = usersDTO.onlyNumbers(telefone);
-    usersDTO.id = id;
+    if (telefone) usersDTO.telefone = usersDTO.onlyNumbers(telefone);
+    if (id) usersDTO.id = id;
     return usersDTO;
   }
 
-  static withID(id:string): UsersDTO{
+  static withID(id: string): UsersDTO {
     const usersDTO = new UsersDTO();
     usersDTO.id = id;
     return usersDTO;

@@ -53,23 +53,7 @@
               <p>Sexo: ${item.sexo}</p>
               <p>Data de nascimento: ${dataFormatada}</p>
             </div>
-            <div class="card-header">
-              <h4>Prontuário</h4>
-              <div class="card-header-action">
-                <button class="btn btn-primary" type="button" data-toggle="collapse${index}"  onclick ='collapse_pets("#collapse${index}")'>
-                  <i class="fas fa-plus"></i></a>
-                </button>
-              </div>
-            </div>
-            <div class="collapse" id="collapse${index}">
-              <div class="card-body">
-                You can show or hide this card.
-              </div>
-              <div class="card-footer">
-                Card Footer
-              </div>
-            </div>
-          </div>`);
+           `);
         });
 
         swal.close()
@@ -90,3 +74,21 @@
 
 
 </script>
+
+ {{!-- <div class="card-header">
+              <h4>Prontuário</h4>
+              <div class="card-header-action">
+                <button class="btn btn-primary" type="button" data-toggle="collapse${index}"  onclick ='collapse_pets("#collapse${index}")'>
+                  <i class="fas fa-plus"></i></a>
+                </button>
+              </div>
+            </div>
+            <div class="collapse" id="collapse${index}">
+              <div class="card-body">
+                You can show or hide this card.
+              </div>
+              <div class="card-footer">
+                Card Footer
+              </div>
+            </div>
+          </div> --}}

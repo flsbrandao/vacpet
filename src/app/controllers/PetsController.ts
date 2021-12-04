@@ -34,8 +34,14 @@ class PetsController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
+      if (!req.user) {
+        throw new MyCustomErrors(
+          "Erro interno. Tente novamente mais tarde",
+          409
+        );
+      }
       const petsDTO = PetsDTO.withAll(
-        "20f4d6e9-566e-4a05-8158-31dcb8288aed",
+        req.user.userId,
         req.body.nome,
         req.body.specie,
         req.body.sexo,
@@ -59,8 +65,14 @@ class PetsController {
     next: NextFunction
   ): Promise<Response | void> {
     try {
+      if (!req.user) {
+        throw new MyCustomErrors(
+          "Erro interno. Tente novamente mais tarde",
+          409
+        );
+      }
       const petsService = new PetsService();
-      const petsDTO = PetsDTO.withUser("20f4d6e9-566e-4a05-8158-31dcb8288aed");
+      const petsDTO = PetsDTO.withUser(req.user?.userId);
       const response = await petsService.findForUser(petsDTO);
 
       return res.json(response);
@@ -79,7 +91,7 @@ class PetsController {
         throw new MyCustomErrors("ID do usuário não informado", 404);
       }
       const petsService = new PetsService();
-     
+
       const petsDTO = PetsDTO.withUser(req.query.user.toString());
 
       const response = await petsService.findForUser(petsDTO);

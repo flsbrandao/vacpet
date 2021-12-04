@@ -25,7 +25,7 @@ export default class VaccinationDTO extends DTO {
     vaccinationDTO.batche = BatchesModel.withID(batche);
     vaccinationDTO.veterinary = VeretinariansModel.withID(veterinary);
     vaccinationDTO.clinic = ClinicsModel.withID(clinic);
-    vaccinationDTO.data_vacinacao = new Date(data_vacinacao);
+    vaccinationDTO.data_vacinacao = vaccinationDTO.addDayToTheDate(data_vacinacao);
 
     return vaccinationDTO;
   }
