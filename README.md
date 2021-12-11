@@ -1,7 +1,7 @@
 ## VacPet  🐶🐱
 VacPet é uma carteirinha de vacinação online para Pet's, onde fica registrado quais vacinas o Pet tomou, clinica e veterinário que aplicou. 
 
-
+Projeto feito para o Trabalho de Conclusão de Curso, do curso de Análise e Desenvolvimento de Sistemas da Faculdade de Tecnologia do Estado de São Paulo (FATEC)
 ## Como instalar o projeto? ⚙️
 
 Nesse projeto estaremos utilizando o banco de dados **MySQL**. Certifique-se que o mesmo está instalado e crie um banco de dados com o nome *vacpet*.  Caso queira mudar configurações de acesso ao banco, deve-se modificar o arquivo *ormconfig.js*
