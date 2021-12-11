@@ -10,6 +10,8 @@ import vaccines from "./vaccines";
 import batches from "./batches";
 import clinics from "./clinics";
 import medicalrecord from "./medicalrecord";
+import products from './products';
+
 import isAuthenticated from "../../config/authenticate";
 
 export default (app: express.Application) => {
@@ -24,4 +26,5 @@ export default (app: express.Application) => {
   app.use(batches);
   app.use(clinics);
   app.use(medicalrecord);
+  app.use(products);
 };
